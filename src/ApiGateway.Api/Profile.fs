@@ -1,5 +1,4 @@
 module Profile
-
 open Http
 open UserProfile
 open FSharp.Control.Reactive
@@ -10,18 +9,18 @@ let getProfile username =
 
     let userStream = username |> userUrl |> asyncResponseToObservable
 
-    let toRepoWithLanguagesStream (repo : UserPosts.Root) =    
+    let toPostWithLanguagesStream (post : UserPosts.Root) =    
         username
-        |> languagesUrl repo.Name
+        |> languagesUrl post.Name
         |> asyncResponseToObservable
-        |> Observable.map (languageResponseToPostWithLanguages repo)
+        |> Observable.map (languageResponseToPostWithLanguages post)
 
     let popularPostsStream = 
         username
         |> postsUrl 
         |> asyncResponseToObservable 
         |> Observable.map postsResponseToPopularPosts
-        |> flatmap2 toRepoWithLanguagesStream
+        |> flatmap2 toPostWithLanguagesStream
     
     async {
         return! popularPostsStream

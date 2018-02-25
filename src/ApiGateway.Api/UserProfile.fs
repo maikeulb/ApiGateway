@@ -9,8 +9,8 @@ type UserPosts = JsonProvider<"posts.json">
 type Profile = {
     Name : string
     AvatarUrl : string
-    PopularPostings : Posting seq
-} and Posting = {
+    PopularRepositories : Repository seq
+} and Repository = {
     Name : string
     Stars : int
     Languages : string[]
@@ -18,11 +18,13 @@ type Profile = {
 
 let host = "https://api.github.com"
 let userUrl = sprintf "%s/users/%s" host
-let postsUrl = sprintf "%s/users/%s/posts" host
-let languagesUrl postName userName = sprintf "%s/posts/%s/%s/languages" host userName postName
+let postsUrl = sprintf "%s/users/%s/repos" host
+let languagesUrl postName userName = sprintf "%s/repos/%s/%s/languages" host userName postName
 
 let parseUser = UserProfile.Parse
 let parseUserPosts = UserPosts.Parse
+
+
 
 let popularPosts (posts : UserPosts.Root []) =
     
@@ -52,9 +54,5 @@ let postsResponseToPopularPosts = function
 let toProfile  = function
     |Ok(u), posts -> 
         let user = parseUser u
-        {Name = user.Name; PopularPostings = posts; AvatarUrl = user.AvatarUrl} |> Some
+        {Name = user.Name; PopularRepositories = posts; AvatarUrl = user.AvatarUrl} |> Some
     | _ -> None
-
-
-
-

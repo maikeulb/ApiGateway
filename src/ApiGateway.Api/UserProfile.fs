@@ -3,8 +3,8 @@ module UserProfile
 open Http
 open FSharp.Data
 
-type UserProfile = JsonProvider<"user.json">
-type UserPosts = JsonProvider<"posts.json">
+type UserProfile = JsonProvider<"https://api.github.com/users/octocat">
+type UserPosts = JsonProvider<"https://api.github.com/users/octocat/repos">
 
 type Profile = {
     Name : string

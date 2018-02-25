@@ -1,9 +1,13 @@
  module ApiGateway.Main
 
 open Suave
-open Suave.Successful
+open Suave.Filters
 
 [<EntryPoint>]
-let main argv =
-    startWebServer defaultConfig (OK "Hello World!")
-    0
+let main argv = 
+
+    let webpart = pathScan "/api/profile/%s" ApiGateway.getProfile
+
+    startWebServer defaultConfig webpart
+    
+    0 

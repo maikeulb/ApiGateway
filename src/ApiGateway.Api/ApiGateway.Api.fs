@@ -1,4 +1,4 @@
-module FsTweetWeb.Main
+ module ApiGateway.Main
 
 open Suave
 open Suave.Successful

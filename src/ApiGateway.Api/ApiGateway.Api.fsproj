@@ -7,12 +7,12 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>426ffd79-a5da-415b-b18f-354fabd289ae</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>FsTweet.Web</RootNamespace>
-    <AssemblyName>FsTweet.Web</AssemblyName>
+    <RootNamespace>ApiGateway.Api</RootNamespace>
+    <AssemblyName>ApiGateway.Api</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFSharpCoreVersion>4.3.1.0</TargetFSharpCoreVersion>
-    <Name>FsTweet.Web</Name>
+    <Name>ApiGateway.Api</Name>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -42,7 +42,7 @@
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FsTweet.Web.fs" />
+    <Compile Include="ApiGateway.Api.fs" />
   </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">14</MinimumVisualStudioVersion>

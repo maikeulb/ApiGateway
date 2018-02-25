@@ -21,7 +21,7 @@ Target "Build" (fun _ ->
 
 Target "Run" (fun _ -> 
     ExecProcess 
-        (fun info -> info.FileName <- "./build/FsTweet.Web.exe")
+        (fun info -> info.FileName <- "./build/ApiGateway.Api.exe")
         (System.TimeSpan.FromDays 1.)
     |> ignore
 )

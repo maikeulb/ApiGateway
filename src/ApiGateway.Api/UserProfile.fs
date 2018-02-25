@@ -4,7 +4,7 @@ open Http
 open FSharp.Data
 
 type UserProfile = JsonProvider<"https://api.github.com/users/octocat">
-type UserPosts = JsonProvider<"https://api.github.com/users/octocat/repos">
+type UserRepos = JsonProvider<"https://api.github.com/users/octocat/repos">
 
 type Profile = {
     Name : string
@@ -18,20 +18,20 @@ type Profile = {
 
 let host = "https://api.github.com"
 let userUrl = sprintf "%s/users/%s" host
-let postsUrl = sprintf "%s/users/%s/repos" host
-let languagesUrl postName userName = sprintf "%s/repos/%s/%s/languages" host userName postName
+let reposUrl = sprintf "%s/users/%s/repos" host
+let languagesUrl repoName userName = sprintf "%s/repos/%s/%s/languages" host userName repoName
 
 let parseUser = UserProfile.Parse
-let parseUserPosts = UserPosts.Parse
+let parseUserRepos = UserRepos.Parse
 
 
 
-let popularPosts (posts : UserPosts.Root []) =
+let popularRepos (repos : UserRepos.Root []) =
     
-    let ownPosts = posts |> Array.filter (fun post -> not post.Fork)
-    let takeCount = if ownPosts.Length > 3 then 3 else posts.Length
+    let ownRepos = repos |> Array.filter (fun repo -> not repo.Fork)
+    let takeCount = if ownRepos.Length > 3 then 3 else repos.Length
 
-    ownPosts
+    ownRepos
     |> Array.sortBy (fun r -> -r.StargazersCount)
     |> Array.toSeq
     |> Seq.take takeCount
@@ -43,16 +43,16 @@ let parseLanguages languagesJson =
     |> JsonExtensions.Properties
     |> Array.map fst
     
-let languageResponseToPostWithLanguages (post : UserPosts.Root) = function
-    |Ok(l) -> {Name = post.Name; Languages = (parseLanguages l); Stars = post.StargazersCount}
-    |_ -> {Name = post.Name; Languages = Array.empty; Stars = post.StargazersCount}
+let languageResponseToRepoWithLanguages (repo : UserRepos.Root) = function
+    |Ok(l) -> {Name = repo.Name; Languages = (parseLanguages l); Stars = repo.StargazersCount}
+    |_ -> {Name = repo.Name; Languages = Array.empty; Stars = repo.StargazersCount}
 
-let postsResponseToPopularPosts = function
-    |Ok(r) -> r |> parseUserPosts |> popularPosts
+let reposResponseToPopularRepos = function
+    |Ok(r) -> r |> parseUserRepos |> popularRepos
     |_ -> [||]
 
 let toProfile  = function
-    |Ok(u), posts -> 
+    |Ok(u), repos -> 
         let user = parseUser u
-        {Name = user.Name; PopularRepositories = posts; AvatarUrl = user.AvatarUrl} |> Some
+        {Name = user.Name; PopularRepositories = repos; AvatarUrl = user.AvatarUrl} |> Some
     | _ -> None

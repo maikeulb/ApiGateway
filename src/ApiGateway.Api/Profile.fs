@@ -9,21 +9,21 @@ let getProfile username =
 
     let userStream = username |> userUrl |> asyncResponseToObservable
 
-    let toPostWithLanguagesStream (post : UserPosts.Root) =    
+    let toRepoWithLanguagesStream (repo : UserRepos.Root) =    
         username
-        |> languagesUrl post.Name
+        |> languagesUrl repo.Name
         |> asyncResponseToObservable
-        |> Observable.map (languageResponseToPostWithLanguages post)
+        |> Observable.map (languageResponseToRepoWithLanguages repo)
 
-    let popularPostsStream = 
+    let popularReposStream = 
         username
-        |> postsUrl 
+        |> reposUrl 
         |> asyncResponseToObservable 
-        |> Observable.map postsResponseToPopularPosts
-        |> flatmap2 toPostWithLanguagesStream
+        |> Observable.map reposResponseToPopularRepos
+        |> flatmap2 toRepoWithLanguagesStream
     
     async {
-        return! popularPostsStream
+        return! popularReposStream
                 |> Observable.zip userStream
                 |> Observable.map toProfile
                 |> TaskObservableExtensions.ToTask 

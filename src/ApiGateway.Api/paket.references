@@ -1,2 +1,6 @@
 FSharp.Core
 Suave
+FSharp.Control.Reactive
+Http.fs
+Newtonsoft.Json
+FSharp.Data

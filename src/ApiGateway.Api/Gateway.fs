@@ -1,4 +1,4 @@
-module ApiGateway
+module Gateway
 
 open Newtonsoft.Json
 open Newtonsoft.Json.Serialization

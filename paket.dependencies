@@ -4,6 +4,6 @@ nuget FAKE
 nuget FSharp.Control.Reactive
 nuget FSharp.Core
 nuget FSharp.Data
-nuget Http.fs
+nuget Http.fs 1.5.1
 nuget Newtonsoft.Json
 nuget Suave

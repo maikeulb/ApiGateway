@@ -6,7 +6,7 @@ open Suave.Filters
 [<EntryPoint>]
 let main argv = 
 
-    let webpart = pathScan "/api/profile/%s" ApiGateway.getProfile
+    let webpart = pathScan "/api/profile/%s" Gateway.getProfile
 
     startWebServer defaultConfig webpart
     

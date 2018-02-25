@@ -24,7 +24,7 @@ let languagesUrl postName userName = sprintf "%s/posts/%s/%s/languages" host use
 let parseUser = UserProfile.Parse
 let parseUserPosts = UserPosts.Parse
 
-let popularPosts (posts : GitHubUserPosts.Root []) =
+let popularPosts (posts : UserPosts.Root []) =
     
     let ownPosts = posts |> Array.filter (fun post -> not post.Fork)
     let takeCount = if ownPosts.Length > 3 then 3 else posts.Length

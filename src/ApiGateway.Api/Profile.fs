@@ -14,7 +14,7 @@ let getProfile username =
         username
         |> languagesUrl repo.Name
         |> asyncResponseToObservable
-        |> Observable.map (languageResponseToRepoWithLanguages repo)
+        |> Observable.map (languageResponseToPostWithLanguages repo)
 
     let popularPostsStream = 
         username

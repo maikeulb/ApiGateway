@@ -62,7 +62,7 @@ Sample Usage
 Run
 ---
 
-You need Mono, forge, and fake. If you meet those requirements, then:
+You need Mono, forge, and fake.
 
 ```
 forge fake run
